@@ -7,6 +7,7 @@ import pymysql
 import pymysql.cursors
 from fabric.api import env
 from fabric.colors import red
+from fabric.network import disconnect_all
 
 __author__ = 'xuemingli'
 
@@ -66,5 +67,9 @@ def load_modules(cf):
 cf = inspect.currentframe()
 load_modules(cf)
 
-env.roledefs = RoleDef()
+#env.roledefs = RoleDef()
+env.roledefs = {}
 env.DEBUG = DEBUG
+env.linewise = True
+env.timeout = 1
+disconnect_all()
