@@ -12,6 +12,11 @@ from fabric.network import disconnect_all
 __author__ = 'xuemingli'
 
 DEBUG = False
+HOST = '127.0.0.1'
+PORT = 3306
+USER = 'root'
+PASSWORD = '12qwaszx'
+DB = 'servers'
 
 if DEBUG:
     import traceback
@@ -22,7 +27,7 @@ class RoleDef(dict):
         self.query = 'select h.`ip` as ip, h.`port` as port, h.`user` as user ' \
                      'from groups g, hosts h ' \
                      'where g.name = "%s"  and g.id = h.group'
-        self.conn = pymysql.connect(host="127.0.0.1", port=3306, user="root", passwd="12qwaszx", db="servers",
+        self.conn = pymysql.connect(host=HOST, port=PORT, user=USER, passwd=PASSWORD, db=DB,
                                     cursorclass=pymysql.cursors.DictCursor)
         self.cur = self.conn.cursor()
         super(dict, self).__init__()
@@ -67,8 +72,7 @@ def load_modules(cf):
 cf = inspect.currentframe()
 load_modules(cf)
 
-#env.roledefs = RoleDef()
-env.roledefs = {}
+env.roledefs = RoleDef()
 env.DEBUG = DEBUG
 env.linewise = True
 env.timeout = 1
